@@ -1,6 +1,7 @@
 import Foundation
-import Random
 import HTTP
+import Random
+import Vapor
 
 extension APISchemaType {
     var typeName: String {
