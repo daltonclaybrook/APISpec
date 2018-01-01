@@ -41,13 +41,6 @@ struct APISchemes: OptionSet {
     init(rawValue: UInt) {
         self.rawValue = rawValue
     }
-    
-    var allSchemeStrings: [String] {
-        var schemeStrings: [String] = []
-        if contains(.http) { schemeStrings.append("http") }
-        if contains(.https) { schemeStrings.append("https") }
-        return schemeStrings
-    }
 }
 
 struct APIOperation {

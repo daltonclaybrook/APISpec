@@ -64,6 +64,15 @@ extension APISchemaType {
     }
 }
 
+extension APISchemes {
+    var allSchemeStrings: [String] {
+        var schemeStrings: [String] = []
+        if contains(.http) { schemeStrings.append("http") }
+        if contains(.https) { schemeStrings.append("https") }
+        return schemeStrings
+    }
+}
+
 extension APIResponse {
     static func ok(description: String = Status.ok.reasonPhrase, model: APISchemaProviding.Type? = nil) -> APIResponse {
         return APIResponse(status: .ok, description: description, model: model)
