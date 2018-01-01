@@ -74,28 +74,28 @@ extension APISchemes {
 }
 
 extension APIResponse {
-    static func ok(description: String = Status.ok.reasonPhrase, model: APISchemaProviding.Type? = nil) -> APIResponse {
+    public static func ok(description: String = Status.ok.reasonPhrase, model: APISchemaProviding.Type? = nil) -> APIResponse {
         return APIResponse(status: .ok, description: description, model: model)
     }
-    static func created(description: String = Status.created.reasonPhrase, model: APISchemaProviding.Type? = nil) -> APIResponse {
+    public static func created(description: String = Status.created.reasonPhrase, model: APISchemaProviding.Type? = nil) -> APIResponse {
         return APIResponse(status: .created, description: description, model: model)
     }
-    static func badRequest(description: String = Status.badRequest.reasonPhrase, model: APISchemaProviding.Type? = nil) -> APIResponse {
+    public static func badRequest(description: String = Status.badRequest.reasonPhrase, model: APISchemaProviding.Type? = nil) -> APIResponse {
         return APIResponse(status: .badRequest, description: description, model: model)
     }
-    static func unauthorized(description: String = Status.unauthorized.reasonPhrase, model: APISchemaProviding.Type? = nil) -> APIResponse {
+    public static func unauthorized(description: String = Status.unauthorized.reasonPhrase, model: APISchemaProviding.Type? = nil) -> APIResponse {
         return APIResponse(status: .unauthorized, description: description, model: model)
     }
-    static func notFound(description: String = Status.badRequest.reasonPhrase, model: APISchemaProviding.Type? = nil) -> APIResponse {
+    public static func notFound(description: String = Status.badRequest.reasonPhrase, model: APISchemaProviding.Type? = nil) -> APIResponse {
         return APIResponse(status: .notFound, description: description, model: model)
     }
-    static func forbidden(description: String = Status.forbidden.reasonPhrase, model: APISchemaProviding.Type? = nil) -> APIResponse {
+    public static func forbidden(description: String = Status.forbidden.reasonPhrase, model: APISchemaProviding.Type? = nil) -> APIResponse {
         return APIResponse(status: .forbidden, description: description, model: model)
     }
 }
 
 extension APIOperation {
-    static func get(
+    public static func get(
         _ path: String,
         summary: String,
         description: String? = nil,
@@ -111,7 +111,7 @@ extension APIOperation {
         )
     }
     
-    static func post(
+    public static func post(
         _ path: String,
         summary: String,
         description: String? = nil,
@@ -128,7 +128,7 @@ extension APIOperation {
         )
     }
     
-    static func put(
+    public static func put(
         _ path: String,
         summary: String,
         description: String? = nil,
@@ -145,7 +145,7 @@ extension APIOperation {
         )
     }
     
-    static func patch(
+    public static func patch(
         _ path: String,
         summary: String,
         description: String? = nil,
@@ -162,7 +162,7 @@ extension APIOperation {
         )
     }
     
-    static func delete(
+    public static func delete(
         _ path: String,
         summary: String,
         description: String? = nil,
@@ -190,19 +190,19 @@ extension APIOperation {
 }
 
 extension APISpecProviding {
-    var version: String {
+    public var version: String {
         return "1.0"
     }
-    var contactEmail: String? {
+    public var contactEmail: String? {
         return nil
     }
-    var basePath: String {
+    public var basePath: String {
         return "/"
     }
 }
 
 extension APISpecProviding {
-    func generateAPISpecResponse(with tagProviders: [APITagProviding]) throws -> Response {
+    public func generateAPISpecResponse(with tagProviders: [APITagProviding]) throws -> Response {
         let data = try generateAPISpecJSONData(with: tagProviders)
         let headers: [HeaderKey: String] = [
             .contentType: "application/json"
@@ -210,7 +210,7 @@ extension APISpecProviding {
         return Response(status: .ok, headers: headers, body: data)
     }
     
-    func generateAPISpecJSONData(with tagProviders: [APITagProviding]) throws -> Data {
+    public func generateAPISpecJSONData(with tagProviders: [APITagProviding]) throws -> Data {
         var rootObject: [String: Any] = [:]
         rootObject["openapi"] = "3.0.0"
         rootObject["info"] = [
@@ -280,7 +280,7 @@ extension Array where Element == APISchemaProviding.Type {
 }
 
 extension APISchemaProviding {
-    static var contentType: APIContentType {
+    public static var contentType: APIContentType {
         return .json
     }
     
@@ -353,7 +353,7 @@ extension Array where Element == APIResponse {
 }
 
 extension Resource where Model: APISchemaProviding {
-    func makeAPIOperations(
+    public func makeAPIOperations(
         withPath path: String,
         storeModel: APISchemaProviding.Type? = nil,
         updateModel: APISchemaProviding.Type? = nil

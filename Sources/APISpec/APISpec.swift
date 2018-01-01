@@ -3,7 +3,7 @@ import HTTP
 
 // MARK: Protocols
 
-protocol APISpecProviding {
+public protocol APISpecProviding {
     var title: String { get }
     var description: String { get }
     var version: String { get }
@@ -13,13 +13,13 @@ protocol APISpecProviding {
     var schemes: APISchemes { get }
 }
 
-protocol APITagProviding {
+public protocol APITagProviding {
     var name: String { get }
     var description: String { get }
     var operations: [APIOperation] { get }
 }
 
-protocol APISchemaProviding {
+public protocol APISchemaProviding {
     static var schemaName: String { get }
     static var contentType: APIContentType { get }
     static var properties: [APIProperty] { get }
@@ -27,31 +27,31 @@ protocol APISchemaProviding {
 
 // MARK: Helper Models
 
-enum APIContentType: String {
+public enum APIContentType: String {
     case json = "application/json"
     case formData = "multipart/form-data"
 }
 
-struct APISchemes: OptionSet {
-    let rawValue: UInt
-    static let http = APISchemes(rawValue: 1 << 0)
-    static let https = APISchemes(rawValue: 1 << 1)
-    static let none = APISchemes(rawValue: 0)
+public struct APISchemes: OptionSet {
+    public let rawValue: UInt
+    public static let http = APISchemes(rawValue: 1 << 0)
+    public static let https = APISchemes(rawValue: 1 << 1)
+    public static let none = APISchemes(rawValue: 0)
     
-    init(rawValue: UInt) {
+    public init(rawValue: UInt) {
         self.rawValue = rawValue
     }
 }
 
-struct APIOperation {
-    let method: HTTP.Method
-    let path: String
-    let summary: String
-    let description: String?
-    let requestModel: APISchemaProviding.Type?
-    let responses: [APIResponse]
+public struct APIOperation {
+    public let method: HTTP.Method
+    public let path: String
+    public let summary: String
+    public let description: String?
+    public let requestModel: APISchemaProviding.Type?
+    public let responses: [APIResponse]
     
-    init(
+    public init(
         method: HTTP.Method,
         path: String,
         summary: String,
@@ -68,19 +68,19 @@ struct APIOperation {
     }
 }
 
-struct APIProperty {
-    let name: String
-    let type: APISchemaType
-    let isRequired: Bool
+public struct APIProperty {
+    public let name: String
+    public let type: APISchemaType
+    public let isRequired: Bool
     
-    init(name: String, type: APISchemaType, isRequired: Bool = true) {
+    public init(name: String, type: APISchemaType, isRequired: Bool = true) {
         self.name = name
         self.type = type
         self.isRequired = isRequired
     }
 }
 
-enum APISchemaType {
+public enum APISchemaType {
     case null
     case boolean
     case object(type: APISchemaProviding.Type)
@@ -90,12 +90,12 @@ enum APISchemaType {
     case data
 }
 
-struct APIResponse {
-    let status: HTTP.Status
-    let description: String
-    let model: APISchemaProviding.Type?
+public struct APIResponse {
+    public let status: HTTP.Status
+    public let description: String
+    public let model: APISchemaProviding.Type?
     
-    init(status: HTTP.Status, description: String = "", model: APISchemaProviding.Type? = nil) {
+    public init(status: HTTP.Status, description: String = "", model: APISchemaProviding.Type? = nil) {
         self.status = status
         self.description = description
         self.model = model
